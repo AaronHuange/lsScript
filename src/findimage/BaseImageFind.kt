@@ -1,18 +1,26 @@
 package findimage
 
+import tools.UtilImage
 import java.awt.Point
 import java.awt.image.BufferedImage
+import java.lang.RuntimeException
 
 
 /**
  * 查找的目标图片的基类
  */
-abstract class BaseImageFind(bitmap: BufferedImage) {
+abstract class BaseImageFind(imagePath: String) {
 
     private val bitmap: BufferedImage
 
     init {
-        this.bitmap = bitmap
+        val image = UtilImage.loadImage(imagePath)
+        if (image != null) {
+            this.bitmap = image
+        } else {
+            this.bitmap = BufferedImage(1, 1, 1)
+            throw RuntimeException("图片${imagePath}不存在!!")
+        }
     }
 
     fun getBitmap() = bitmap
@@ -37,11 +45,6 @@ abstract class BaseImageFind(bitmap: BufferedImage) {
     abstract fun findAreaRate(): AimImageAreaRate
 
     /**
-     * 图片查找到后应该执行的操作
-     */
-    abstract fun exeHandler(point: Point)
-
-    /**
      * 允许误差的像素点个数
      */
     abstract fun getErrorCount(): Int
@@ -55,5 +58,10 @@ abstract class BaseImageFind(bitmap: BufferedImage) {
      * 不需要程序确定找到后的位置，自己能够确定屏幕位置
      */
     abstract fun useThisPoint(): Point
+
+    /**
+     * 图片查找到后应该执行的操作
+     */
+    abstract fun exeHandler(point: Point)
 
 }

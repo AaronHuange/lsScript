@@ -2,7 +2,7 @@ package tools
 
 import javafx.scene.input.KeyCode
 
-class UtilKeyboard {
+object UtilKeyboard {
 
     /**
      * 利用剪贴板输入文字
@@ -10,10 +10,29 @@ class UtilKeyboard {
     fun inputString(str: String) {
         val oldStr = UtilClipboard.getClipboardString()
         UtilClipboard.setClipboardText(str)
-        clickDown(KeyCode.CONTROL.impl_getCode())
-        click(KeyCode.V.impl_getCode())
-        clickRelease(KeyCode.CONTROL.impl_getCode())
-        UtilClipboard.setClipboardText(oldStr)
+        when (UtilSystem.getSystemType()) {
+            SystemType.Windows -> {
+                clickDown(KeyCode.CONTROL.impl_getCode())
+                click(KeyCode.V.impl_getCode())
+                clickRelease(KeyCode.CONTROL.impl_getCode())
+                UtilClipboard.setClipboardText(oldStr)
+            }
+            SystemType.Mac -> {
+                clickDown(KeyCode.COMMAND.impl_getCode())
+                click(KeyCode.V.impl_getCode())
+                clickRelease(KeyCode.COMMAND.impl_getCode())
+                UtilClipboard.setClipboardText(oldStr)
+            }
+            else -> {
+                ///TODO 暂时用windows的一套
+                clickDown(KeyCode.CONTROL.impl_getCode())
+                UtilSystem.sleep(100)
+                click(KeyCode.V.impl_getCode())
+                UtilSystem.sleep(100)
+                clickRelease(KeyCode.CONTROL.impl_getCode())
+                UtilClipboard.setClipboardText(oldStr)
+            }
+        }
     }
 
     /**

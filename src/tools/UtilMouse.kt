@@ -53,6 +53,17 @@ object UtilMouse {
     }
 
     /**
+     * 到某个位置单击鼠标右键,在回来
+     */
+    fun clickRightInPoint(point: Point) {
+        val oldPoint = getMousePosition()
+        UtilMouse.moveTo(point.x, point.y)
+        UtilMouse.clickRight()
+        moveTo(oldPoint.x, oldPoint.y)
+    }
+
+
+    /**
      * 长按鼠标左键(默认长按2秒)
      */
     fun longClickLeft(time: Int = 2000) {
