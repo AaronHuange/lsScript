@@ -132,10 +132,10 @@ public class C_以图找位置 {
                 //根据目标图的尺寸，得到目标图四个角映射到屏幕截图上的四个点，
                 //判断截图上对应的四个点与图B的四个角像素点的值是否相同，
                 //如果相同就将屏幕截图上映射范围内的所有的点与目标图的所有的点进行比较。
-                if ((keyImageRGBData[0][0] ^ screenShotImageRGBData[y][x]) == 0
-                        && (keyImageRGBData[0][keyImgWidth - 1] ^ screenShotImageRGBData[y][x + keyImgWidth -x 1]) == 0
-                        && (keyImageRGBData[keyImgHeight - 1][keyImgWidth - 1] ^ screenShotImageRGBData[y + keyImgHeight - 1][x + keyImgWidth - 1]) == 0
-                        && (keyImageRGBData[keyImgHeight - 1][0] ^ screenShotImageRGBData[y + keyImgHeight - 1][x]) == 0) {
+//                if ((keyImageRGBData[0][0] ^ screenShotImageRGBData[y][x]) == 0
+//                        && (keyImageRGBData[0][keyImgWidth - 1] ^ screenShotImageRGBData[y][x + keyImgWidth -x 1]) == 0
+//                        && (keyImageRGBData[keyImgHeight - 1][keyImgWidth - 1] ^ screenShotImageRGBData[y + keyImgHeight - 1][x + keyImgWidth - 1]) == 0
+//                        && (keyImageRGBData[keyImgHeight - 1][0] ^ screenShotImageRGBData[y + keyImgHeight - 1][x]) == 0) {
 
                     boolean isFinded = isMatchAll(y, x);
                     //如果比较结果完全相同，则说明图片找到，填充查找到的位置坐标数据到查找结果数组。
@@ -151,7 +151,7 @@ public class C_以图找位置 {
                         return;
                     }
                 }
-            }
+//            }
         }
     }
 

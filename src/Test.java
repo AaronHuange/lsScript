@@ -1,8 +1,9 @@
-import utils.computer.C_GameHelper;
-import utils.computer.C_系统控制器;
+import tools.UtilFile;
+import tools.UtilMouse;
+import tools.UtilSystem;
 import utils.other.C_日志;
 
-import java.util.List;
+import java.awt.*;
 
 public class Test {
     /*****
@@ -29,41 +30,23 @@ public class Test {
      * @param args
      */
     public static void main(String[] args) {
-        C_日志.m_打印("启动脚本");
-        C_日志.m_打印("开始读取配置文件、扫描图库");
-        C_图库.m_扫描图库();
-        C_日志.m_打印("扫描图库完毕");
-        List<C_imagepath> p_磁盘图库 = C_图库.m_磁盘图列表();
 
-        while (true) {
-            switch (C_GameHelper.m_next()) {
-                case 0:
-                    C_日志.m_打印("点击开始一局游戏");
-
-
-                    C_日志.m_打印("完毕");
-                    break;
-                case 1:
-                    C_日志.m_打印("");
-
-                    C_日志.m_打印("完毕");
-                    break;
-                case 2:
-                    C_日志.m_打印("");
-
-                    C_日志.m_打印("完毕");
-                    break;
-                default:
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1500);
+                        Point p = UtilMouse.INSTANCE.getMousePosition();
+                        C_日志.m_打印("location is " + p.x + " " + p.y);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            C_系统控制器.m_获得系统控制器().m_暂停(500);
-        }
-
-//        C_系统控制器 p_系统控制器 = C_系统控制器.m_获得系统控制器();
-//        C_以图找位置 p_图片位置 = new C_以图找位置("C://aa.png");
-//        C_鼠标控制器 p_鼠标控制器 = C_鼠标控制器.m_获得鼠标控制器(p_系统控制器);
-//        p_鼠标控制器.m_鼠标移动至xy坐标(p_图片位置.m_图片的X坐标(), p_图片位置.m_图片的Y坐标());
-//        p_鼠标控制器.m_双击鼠标左键();
-//        p_系统控制器.m_暂停(1000);
+        }).start();
+        UtilMouse.INSTANCE.moveTo(0, 0);
+        C_日志.m_打印("project path is " + UtilFile.getCurrentPath());
     }
 
 }

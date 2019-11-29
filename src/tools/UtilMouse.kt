@@ -1,5 +1,7 @@
 package tools
 
+import java.awt.MouseInfo
+import java.awt.Point
 import java.awt.event.InputEvent
 
 /**
@@ -11,6 +13,13 @@ object UtilMouse {
      */
     fun moveTo(x: Int, y: Int) {
         UtilSystem.mouseMove(x, y)
+    }
+
+    /**
+     * 得到鼠标的位置
+     */
+    fun getMousePosition(): Point {
+        return MouseInfo.getPointerInfo().location
     }
 
     /**

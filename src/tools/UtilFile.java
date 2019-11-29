@@ -283,5 +283,13 @@ public class UtilFile {
         return null;
     }
 
+    /**
+     * 得到项目当前路径
+     *
+     * @return
+     */
+    public static String getCurrentPath() {
+        return System.getProperty("user.dir");
+    }
 
 }

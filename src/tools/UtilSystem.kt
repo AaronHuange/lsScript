@@ -4,6 +4,10 @@ import java.awt.Robot
 
 object UtilSystem : Robot() {
 
+    init {
+        setAutoWaitForIdle(true)
+    }
+
     /**
      * 暂停time毫秒
      */

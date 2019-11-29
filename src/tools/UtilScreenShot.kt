@@ -12,28 +12,34 @@ import java.awt.image.BufferedImage
 object UtilScreenShot {
 
     /**
-     * 得到屏幕截图
+     * 全屏幕截图
      */
     fun getScreenShot(): BufferedImage? {
-        return getFullScreenShot()
+        val width = Toolkit.getDefaultToolkit().screenSize.getWidth().toInt()
+        val height = Toolkit.getDefaultToolkit().screenSize.getHeight().toInt()
+        return getFullScreenShot(Rectangle(0, 0, width, height))
     }
 
     /**
-     * 全屏截图
+     *  指定区域截屏
+     */
+    fun getRectScreenShot(startX: Int, startY: Int, toX: Int, toY: Int): BufferedImage? {
+        return getFullScreenShot(Rectangle(startX, startY, toX, toY))
+    }
+
+    /**
+     * 截图
      *
      * @return 返回BufferedImage
      */
-    private fun getFullScreenShot(): BufferedImage? {
+    private fun getFullScreenShot(rectangle: Rectangle): BufferedImage? {
         var bfImage: BufferedImage? = null
-        val width = Toolkit.getDefaultToolkit().screenSize.getWidth().toInt()
-        val height = Toolkit.getDefaultToolkit().screenSize.getHeight().toInt()
         try {
             val robot = Robot()
-            bfImage = robot.createScreenCapture(Rectangle(0, 0, width, height))
+            bfImage = robot.createScreenCapture(rectangle)
         } catch (e: AWTException) {
             e.printStackTrace()
         }
         return bfImage
     }
-
 }
