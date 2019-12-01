@@ -1,6 +1,7 @@
 package findimage
 
 import tools.UtilImage
+import tools.UtilLogCat
 import java.awt.Point
 import java.awt.image.BufferedImage
 import java.lang.RuntimeException
@@ -30,6 +31,15 @@ abstract class BaseImageFind(imagePath: String) {
     fun getImageHeight() = bitmap.height
 
     /**
+     * 防止系统检测，将坐标转换成随机坐标
+     */
+    fun getRandomPoint(point: Point): Point {
+        point.x += ((Math.random() * 8).toInt() - 4)
+        point.y += ((Math.random() * 4).toInt() - 2)
+        return point
+    }
+
+    /**
      * 图片处理的灰度 值
      */
     abstract fun grayValue(): Float
@@ -55,9 +65,10 @@ abstract class BaseImageFind(imagePath: String) {
     abstract fun getFloatCount(): Int
 
     /**
-     * 不需要程序确定找到后的位置，自己能够确定屏幕位置
+     * @return ErrorPoint 查找后通过自己计算位置
+     *         Point(?,?) 查找后不管在哪都使用返回的位置
      */
-    abstract fun useThisPoint(): Point
+    abstract fun usePoint(screenSize: Point): Point
 
     /**
      * 图片查找到后应该执行的操作

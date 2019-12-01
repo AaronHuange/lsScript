@@ -6,5 +6,6 @@ enum class Attribute {
     白板,
     机械,
     元素,
-    龙
+    龙,
+    法术
 }

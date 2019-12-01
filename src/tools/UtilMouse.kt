@@ -58,7 +58,21 @@ object UtilMouse {
     fun clickRightInPoint(point: Point) {
         val oldPoint = getMousePosition()
         UtilMouse.moveTo(point.x, point.y)
+        UtilSystem.sleep(200)
         UtilMouse.clickRight()
+        UtilSystem.sleep(200)
+        moveTo(oldPoint.x, oldPoint.y)
+    }
+
+    /**
+     * 到某个位置单击鼠标左键,在回来
+     */
+    fun clickLeftInPoint(point: Point) {
+        val oldPoint = getMousePosition()
+        UtilMouse.moveTo(point.x, point.y)
+        UtilSystem.sleep(200)
+        UtilMouse.clickLeft()
+        UtilSystem.sleep(200)
         moveTo(oldPoint.x, oldPoint.y)
     }
 

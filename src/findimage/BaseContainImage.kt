@@ -135,8 +135,10 @@ abstract class BaseContainImage(screenShotImage: BufferedImage, scaleWidth: Int,
 
     /**
      * 查找图片的方法，具体由各种子查找方式实现
+     * @param  baseImageFind
+     * @param openA 是否忽略透明像素点
      */
-    abstract fun findImagePoint(baseImageFind: BaseImageFind): Point
+    abstract fun findImagePoint(baseImageFind: BaseImageFind, openA: Boolean = false): Point
 
 
 }

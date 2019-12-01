@@ -1,5 +1,7 @@
 package tools;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -291,5 +293,22 @@ public class UtilFile {
     public static String getCurrentPath() {
         return System.getProperty("user.dir");
     }
+
+
+    public static String getAssetsImagePath(String imageName) {
+        return getCurrentPath() + File.separator + "assets" + File.separator + "images" + File.separator + imageName + (imageName.contains(".") ? "" : ".png");
+    }
+
+    public static boolean saveBuffedImageToAssetsImagePath(BufferedImage bufferedImage, String assetsImagePath) {
+        File outputfile = new File(UtilFile.getAssetsImagePath(assetsImagePath + ".jpg"));
+        try {
+            ImageIO.write(bufferedImage, "jpg", outputfile);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 }

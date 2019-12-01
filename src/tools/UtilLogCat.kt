@@ -16,4 +16,12 @@ object UtilLogCat {
             println(SimpleDateFormat("yyyy-MM-dd HH:SS:").format(Date()) + msg)
         }
     }
+
+    fun todo(msg: String) {
+        println("TODO TODO TODO TODO TODO: ${msg}")
+    }
+
+    fun fixme(msg: String) {
+        println("FIXME FIXME FIXME FIXME: ${msg}")
+    }
 }
