@@ -2,7 +2,6 @@ package project.lushi.findimageentities
 
 import findimage.AimImageAreaRate
 import findimage.BaseImageFind
-import org.mozilla.javascript.BaseFunction
 import tools.UtilFile
 import java.awt.Point
 
