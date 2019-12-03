@@ -5,13 +5,16 @@ import project.lushi.cardentities.BaseCard
 import project.lushi.enums.Attribute
 import project.lushi.enums.CardLocationMode
 import project.lushi.enums.Jobs
+import project.lushi.enums.ZhanHongType
+import project.lushi.findimageentities.findcardimage.FindMiFaXueJia
 import tools.UtilLogCat
 
 /**
  * 法师卡：秘法学家
  */
-class Card2MiFaXueJia(imageFind: BaseImageFind, baseAtkNum: Int = 2, baseBloodNum: Int = 3, attribute: Attribute = Attribute.白板, pay: Int = 2, is随从: Boolean = true)
-    : BaseCard(imageFind=imageFind,jobs = Jobs.法师, canAtk = false, baseAtkNum = baseAtkNum, baseBloodNum = baseBloodNum, attribute = attribute, pay = pay, is随从 = is随从) {
+class Card2MiFaXueJia(imageFind: BaseImageFind = FindMiFaXueJia(), baseAtkNum: Int = 2, baseBloodNum: Int = 3, attribute: Attribute = Attribute.白板, pay: Int = 2, is随从: Boolean = true)
+    : BaseCard(imageFind = imageFind, jobs = Jobs.法师, canAtk = false, baseAtkNum = baseAtkNum, baseBloodNum = baseBloodNum, attribute = attribute, pay = pay, is随从 = is随从) {
+
     override fun onDeath() {
 
     }

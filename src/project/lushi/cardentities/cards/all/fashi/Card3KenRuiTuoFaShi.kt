@@ -8,25 +8,18 @@ import project.lushi.enums.Attribute
 import project.lushi.enums.CardLocationMode
 import project.lushi.enums.Jobs
 import project.lushi.enums.ZhanHongType
+import project.lushi.findimageentities.findcardimage.FindKenRuiTuoFaShi
 
-/**
- * 法师卡:元素唤醒
- */
-class Card0Yuansuhuanxing(imageFind: BaseImageFind, cardLocationMode: CardLocationMode = CardLocationMode.IN牌库, baseAtkNum: Int = 0, baseBloodNum: Int = 0, attribute: Attribute = Attribute.法术, pay: Int = 0, is嘲讽: Boolean = false, is磁力: Boolean = false, is吸血: Boolean = false, is冲锋: Boolean = false, is突袭: Boolean = false, is双生: Boolean = false, is发现: Boolean = false, is随从: Boolean = false)
+class Card3KenRuiTuoFaShi(imageFind: BaseImageFind = FindKenRuiTuoFaShi(), cardLocationMode: CardLocationMode = CardLocationMode.IN牌库, baseAtkNum: Int = 4, baseBloodNum: Int = 3, attribute: Attribute = Attribute.白板, pay: Int = 3, is嘲讽: Boolean = false, is磁力: Boolean = false, is吸血: Boolean = false, is冲锋: Boolean = false, is突袭: Boolean = false, is双生: Boolean = false, is发现: Boolean = false, is随从: Boolean = true)
     : BaseCard(imageFind = imageFind, jobs = Jobs.法师, canAtk = false, point = ErrorPoint, cardLocationMode = cardLocationMode, baseAtkNum = baseAtkNum, baseBloodNum = baseBloodNum, attribute = attribute, pay = pay, is嘲讽 = is嘲讽, is磁力 = is磁力, is吸血 = is吸血, is冲锋 = is冲锋, is突袭 = is突袭, is双生 = is双生, is发现 = is发现, is随从 = is随从) {
-    override fun onDeath() {
 
-    }
-
-    override fun onGetMe() {
-
-    }
+    override fun cardName() = "肯瑞托法师"
 
     override fun notifyHaveCardPlay(baseCard: BaseCard) {
-        if (funcOpen && baseCard.attribute == Attribute.元素) {
+        if (funcOpen && baseCard.is奥秘) {
             for (card in GameManage.cardIn手牌) {
-                if (card.attribute == Attribute.元素) {
-                    card.pay += 2
+                if (card.is奥秘) {
+                    card.pay = 3
                 }
             }
             funcOpen = false
@@ -36,17 +29,23 @@ class Card0Yuansuhuanxing(imageFind: BaseImageFind, cardLocationMode: CardLocati
     override fun func() {
         funcOpen = true //功能开启
         for (card in GameManage.cardIn手牌) {
-            if (card.attribute == Attribute.元素) {
-                card.pay -= 2
+            if (card.is奥秘) {
+                card.pay = 0;
             }
         }
+    }
+
+    override fun onGetMe() {
+    }
+
+    override fun onDeath() {
     }
 
     override fun onMyHuiHeEnd(cardLocationMode: CardLocationMode) {
         if (funcOpen) {
             for (card in GameManage.cardIn手牌) {
-                if (card.attribute == Attribute.元素) {
-                    card.pay += 2
+                if (card.is奥秘) {
+                    card.pay = 3
                 }
             }
             funcOpen = false
@@ -61,7 +60,5 @@ class Card0Yuansuhuanxing(imageFind: BaseImageFind, cardLocationMode: CardLocati
 
     override fun onEnemyHuiHeStart(cardLocationMode: CardLocationMode) {
     }
-
-    override fun cardName() = "元素唤醒"
 
 }

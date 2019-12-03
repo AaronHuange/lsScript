@@ -52,7 +52,7 @@ abstract class BaseImageFind(imagePath: String) {
     /**
      * 该查找图片需要查找的区域范围占被查找图片的宽高的比率
      */
-    abstract fun findAreaRate(): AimImageAreaRate
+    abstract fun findAreaRate(): AimImageAreaRate?
 
     /**
      * 允许误差的像素点个数

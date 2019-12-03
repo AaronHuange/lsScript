@@ -9,11 +9,10 @@ import project.lushi.entities.EnvironmentBean
 import project.lushi.enums.CardLocationMode
 import project.lushi.enums.Environment
 import project.lushi.enums.Jobs
+import project.lushi.enums.ZhanHongType
 import project.lushi.findimageentities.*
 import tools.*
 import java.awt.image.BufferedImage
-import java.io.File
-import javax.imageio.ImageIO
 
 
 fun main(args: Array<String>) {
@@ -33,7 +32,6 @@ fun main(args: Array<String>) {
 }
 
 object GameManage {
-    private var fileNum = 0
     val cardIn牌库 = ArrayList<BaseCard>()
     val cardIn战场 = ArrayList<BaseCard>()
     val cardIn墓地 = ArrayList<BaseCard>()
@@ -72,16 +70,18 @@ object GameManage {
         enemyJob = Jobs.战士
     }
 
+    private var fileNum = 0
+
     /**
      * 运行游戏分析，会新开子线程
      */
     private fun exeGame(callback: () -> Unit) {
         val environmentBean = getCurrenEnvironment()
-        exeEnvironmentBeanParse(environmentBean, callback)
-//        {
-        //  UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
-
-//        }
+//        exeEnvironmentBeanParse(environmentBean, callback)
+        exeEnvironmentBeanParse(environmentBean)
+        {
+            UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
+        }
     }
 
 
@@ -157,13 +157,57 @@ object GameManage {
         UtilLogCat.d("抽到的手牌有:")
         //查找起始抽到的牌
         for (card in cardIn牌库) {
-            //遍历牌库的牌
+            //遍历牌库的牌，查找收到的手牌
             if (!ImageFindRGBGrayValue(screenImage).findImagePoint(card.imageFind).isErrirPoint()) {
                 changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
                 UtilLogCat.d(card.cardName())
             }
         }
     }
+
+
+    /**
+     * 我方是否有触发的奥秘
+     */
+    fun existMyAoMi(): Boolean {
+
+        return false
+    }
+
+    /**
+     * 敌方是否有未触发的奥秘
+     */
+    fun existEnemyAoMi(): Boolean {
+
+        return false
+    }
+
+    /**
+     * 当卡牌有战孔效果
+     */
+    fun onZhanHongTo(atkNum: Int, zhanHongType: ZhanHongType) {
+        when (zhanHongType) {
+            ZhanHongType.ATK_TO_SOME -> {
+
+            }
+            ZhanHongType.ATK_TO_ENEMY -> {
+
+            }
+            ZhanHongType.ATK_TO_MY -> {
+
+            }
+            ZhanHongType.ATK_TO_ALL_ENEMY_CARD -> {
+
+            }
+            ZhanHongType.ADD_BLOOD_TO_MY -> {
+
+            }
+            ZhanHongType.ADD_BLOOD_TO_ENEMY -> {
+
+            }
+        }
+    }
+
 
     /**
      * 判断当前环境

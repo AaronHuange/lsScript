@@ -6,6 +6,7 @@ import project.lushi.GameManage
 import project.lushi.enums.Attribute
 import project.lushi.enums.CardLocationMode
 import project.lushi.enums.Jobs
+import project.lushi.enums.ZhanHongType
 import tools.UtilLogCat
 import java.awt.Point
 
@@ -141,7 +142,8 @@ abstract class BaseCard(imageFind: BaseImageFind, jobs: Jobs, canAtk: Boolean, p
     fun toPlay(notifyCard: ArrayList<BaseCard>) {
         UtilLogCat.todo("GameManage 记得在我打出时调用我！")
         func()
-        if (attribute == Attribute.法术) {
+        if (attribute == Attribute.法术 && !is奥秘) {
+            //奥秘这里有点特殊
             GameManage.changeCardStatusArrayList(this, cardLocationMode, CardLocationMode.IN墓地)
         } else {
             GameManage.changeCardStatusArrayList(this, cardLocationMode, CardLocationMode.IN战场)
