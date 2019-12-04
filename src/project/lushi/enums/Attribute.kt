@@ -7,5 +7,6 @@ enum class Attribute {
     机械,
     元素,
     龙,
-    法术
+    法术,
+    武器
 }

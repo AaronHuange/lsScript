@@ -5,10 +5,7 @@ import tools.UtilFile
 import java.awt.Point
 import java.io.File
 
-/**
- * 暗金教侍从卡片的查找模型
- */
-class FindAnJinJiaoShiCong(imagePath: String = UtilFile.getAssetsImagePath("cardgouphanbingaomifa" + File.separator + "anjingjiaoshichong.jpg"))
+class FindLaoJiuDeHuoBa(imagePath: String = UtilFile.getAssetsImagePath("cardgouphanbingaomifa" + File.separator + "laojiudehuoba.jpg"))
     : BaseImageFind(imagePath = imagePath) {
     override fun grayValue() = 1f
 

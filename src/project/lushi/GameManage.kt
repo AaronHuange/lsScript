@@ -1,6 +1,7 @@
 package project.lushi
 
 import findimage.findmethodimpl.ImageFindRGBGrayValue
+import findimage.findmethodimpl.ImageFindRGBGrayValuePoint
 import findimage.isErrirPoint
 import project.lushi.cardentities.BaseCard
 import project.lushi.cardentities.cards.cardgroup.BaseCardGroup
@@ -12,22 +13,11 @@ import project.lushi.enums.Jobs
 import project.lushi.enums.ZhanHongType
 import project.lushi.findimageentities.*
 import tools.*
+import java.awt.Point
 import java.awt.image.BufferedImage
 
 
 fun main(args: Array<String>) {
-//    var screenImage = UtilImage.loadImage(UtilFile.getAssetsImagePath("screenstart.jpeg"))
-//    var screenImage = UtilImage.loadImage(UtilFile.getAssetsImagePath("image.jpg"))
-//    Thread {
-//        Thread.sleep(3000)
-//        screenImage = UtilScreenShot.getScreenShot()
-//        val imageFindRGB = ImageFindRGBGrayValue(screenImage!!)
-//        val point = imageFindRGB.findImagePoint(FindStartGame())
-//        if (point.isErrirPoint()) {
-//            UtilLogCat.d("未找到！！")
-//        }
-//        UtilFile.saveBuffedImageToAssetsImagePath(screenImage, "")
-//    }.start()
     GameManage.exe(CardGroup_HanBinAoMiFa())
 }
 
@@ -48,7 +38,7 @@ object GameManage {
             while (true) {
                 exeGame {
                     //真的需要callback吗????????
-
+                    //UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
                 }
             }
         }.start()
@@ -65,6 +55,9 @@ object GameManage {
         cardIn牌库.addAll(baseCardGroup.getCards())
     }
 
+    /**
+     * 初始化双方英雄(通过技能图标)
+     */
     private fun initHero() {
         myJob = Jobs.法师
         enemyJob = Jobs.战士
@@ -77,11 +70,7 @@ object GameManage {
      */
     private fun exeGame(callback: () -> Unit) {
         val environmentBean = getCurrenEnvironment()
-//        exeEnvironmentBeanParse(environmentBean, callback)
-        exeEnvironmentBeanParse(environmentBean)
-        {
-            UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
-        }
+        exeEnvironmentBeanParse(environmentBean, callback)
     }
 
 
@@ -156,15 +145,27 @@ object GameManage {
         UtilLogCat.d("分析起始手牌...")
         UtilLogCat.d("抽到的手牌有:")
         //查找起始抽到的牌
+        var point = Point(0, 0)
         for (card in cardIn牌库) {
             //遍历牌库的牌，查找收到的手牌
-            if (!ImageFindRGBGrayValue(screenImage).findImagePoint(card.imageFind).isErrirPoint()) {
-                changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
+            point = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(card.imageFind)
+            if (!point.isErrirPoint()) {
+                //changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
+                card.onGetMe()  //这个方法会做上面注释掉的步骤
+                //card.point = point
                 UtilLogCat.d(card.cardName())
             }
         }
     }
 
+
+    /**
+     * 我是否在战场上
+     */
+    fun isMeInZhanChang(card: BaseCard): Boolean {
+
+        return false
+    }
 
     /**
      * 我方是否有触发的奥秘
@@ -180,6 +181,17 @@ object GameManage {
     fun existEnemyAoMi(): Boolean {
 
         return false
+    }
+
+    /**
+     * 当触发抽牌效果时
+     * @param cardCount 抽的牌的个数
+     */
+    fun onGetCard(cardCount: Int) {
+        var card: BaseCard? = null
+
+
+        card!!.onGetMe()
     }
 
     /**
@@ -248,7 +260,6 @@ object GameManage {
         }
         return EnvironmentBean(result, screenImage)
     }
-
 
     /**
      * 运行环境分析过程

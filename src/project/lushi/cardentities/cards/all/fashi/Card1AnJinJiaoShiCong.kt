@@ -69,5 +69,5 @@ class Card1AnJinJiaoShiCong(imageFind: BaseImageFind = FindAnJinJiaoShiCong(), c
     override fun onEnemyHuiHeStart(cardLocationMode: CardLocationMode) {
     }
 
-    override fun cardName() = "元素唤醒"
+    override fun cardName() = "暗金教侍从"
 }

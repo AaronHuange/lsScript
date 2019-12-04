@@ -3,8 +3,9 @@ package project.lushi.findimageentities.findcardimage
 import findimage.BaseImageFind
 import tools.UtilFile
 import java.awt.Point
+import java.io.File
 
-class FindBinQiangShu(imagePath: String = UtilFile.getAssetsImagePath("bingqiangshu.jpg"))
+class FindBinQiangShu(imagePath: String = UtilFile.getAssetsImagePath("cardgouphanbingaomifa" + File.separator + "bingqiangshu.jpg"))
     : BaseImageFind(imagePath = imagePath) {
     override fun grayValue() = 1f
 
