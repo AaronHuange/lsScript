@@ -62,6 +62,7 @@ class ImageFindRGBGrayValuePoint(screenShotImage: BufferedImage, scaleWidth: Int
                         ))
                 ) {
                     if (compareAll(vertical, horizontal, screenScaleArray, findArray, baseImageFind, openA)) {
+                        UtilLogCat.d("Point")
                         //val point = baseImageFind.usePoint(Point(getScreenBitmapWidth(), getScreenBitmapHeight()))
                         val areaRate = baseImageFind.findAreaRate()
                         var point = ErrorPoint
@@ -75,7 +76,12 @@ class ImageFindRGBGrayValuePoint(screenShotImage: BufferedImage, scaleWidth: Int
                     }
                 }
             }
+        UtilLogCat.d("ErrorPoint${aa++}")
         return ErrorPoint
     }
 
+
+
 }
+
+var aa = 0

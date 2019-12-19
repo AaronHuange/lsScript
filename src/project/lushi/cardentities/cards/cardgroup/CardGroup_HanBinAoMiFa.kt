@@ -9,6 +9,8 @@ import project.lushi.cardentities.cards.all.fashi.*
 class CardGroup_HanBinAoMiFa() : BaseCardGroup() {
     override fun getCards(): ArrayList<BaseCard> {
         if (cards.size == 0) {
+            cards.add(Card6AnJinJiaoShuiJinShiNv())
+            cards.add(Card6AnJinJiaoShuiJinShiNv())
             cards.add(Card1BinQiangShu())
             cards.add(Card1BinQiangShu())
             cards.add(Card1AnJinJiaoShiCong())
@@ -36,8 +38,6 @@ class CardGroup_HanBinAoMiFa() : BaseCardGroup() {
             cards.add(Card4HuoQiuShu())
             cards.add(Card5YunWuWangZi())
             cards.add(Card5YunWuWangZi())
-            cards.add(Card6AnJinJiaoShuiJinShiNv())
-            cards.add(Card6AnJinJiaoShuiJinShiNv())
             cards.add(Card6AiLuNiSi())
         }
         return cards

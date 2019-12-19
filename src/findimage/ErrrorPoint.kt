@@ -7,6 +7,10 @@ import java.awt.Point
  */
 val ErrorPoint = Point(-1, -1)
 
+val EnemyHeroPoint = Point()
+
+var MyHeroPoint = Point()
+
 /**
  * 扩展Point方法，判断当前是否是错误坐标
  */

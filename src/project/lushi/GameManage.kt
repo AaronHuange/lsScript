@@ -1,10 +1,15 @@
 package project.lushi
 
+import findimage.AimImageAreaRate
+import findimage.EnemyHeroPoint
+import findimage.ErrorPoint
 import findimage.findmethodimpl.ImageFindRGBGrayValue
 import findimage.findmethodimpl.ImageFindRGBGrayValuePoint
+import findimage.findmethodimpl.PointFindliang亮点Point
 import findimage.isErrirPoint
 import project.lushi.cardentities.BaseCard
 import project.lushi.cardentities.cards.cardgroup.BaseCardGroup
+import project.lushi.cardentities.cards.cardgroup.CardGroup_ALL
 import project.lushi.cardentities.cards.cardgroup.CardGroup_HanBinAoMiFa
 import project.lushi.entities.EnvironmentBean
 import project.lushi.enums.CardLocationMode
@@ -15,10 +20,12 @@ import project.lushi.findimageentities.*
 import tools.*
 import java.awt.Point
 import java.awt.image.BufferedImage
+import javax.rmi.CORBA.Util
 
 
 fun main(args: Array<String>) {
     GameManage.exe(CardGroup_HanBinAoMiFa())
+//    GameManage.exe(CardGroup_ALL())
 }
 
 object GameManage {
@@ -38,7 +45,6 @@ object GameManage {
             while (true) {
                 exeGame {
                     //真的需要callback吗????????
-                    //UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
                 }
             }
         }.start()
@@ -69,8 +75,12 @@ object GameManage {
      * 运行游戏分析，会新开子线程
      */
     private fun exeGame(callback: () -> Unit) {
+        onIsStartGame(BufferedImage(1, 1, 1)) {}
         val environmentBean = getCurrenEnvironment()
-        exeEnvironmentBeanParse(environmentBean, callback)
+//        exeEnvironmentBeanParse(environmentBean, callback)
+        exeEnvironmentBeanParse(environmentBean) {
+            // UtilFile.saveBuffedImageToAssetsImagePath(environmentBean.screenImage, "screenimage${(++fileNum).toString()}")
+        }
     }
 
 
@@ -78,7 +88,7 @@ object GameManage {
      * 当是选择游戏模式的时候
      */
     private fun onIsSelectMode(screenImage: BufferedImage, callback: () -> Unit) {
-        //选择模式的操作会在exeHandler中实现
+        //选择模式的操作会在exeHandler中实现,现在直接callback()就可 以了
         callback()
     }
 
@@ -105,12 +115,43 @@ object GameManage {
      * 当是我的回合且未完成
      */
     private fun onIsMyContinueBout(screenImage: BufferedImage, callback: () -> Unit) {
-        //查找该环境的exeHandler中不会有任何操作
-        //分析该做什么操作
-        //判断当前几费判断手牌有几张
-        //判断
+        //判断我方场上
+//        var point: Point
+//        for (card in cardIn战场) {
+//            //遍历牌库的牌，查找收到的手牌
+//            point = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(card.imageFind)
+//            if (!point.isErrirPoint()) {
+//                //changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
+//                card.onGetMe()  //这个方法会做上面注释掉的步骤
+//                //card.point = point
+//                UtilLogCat.d(card.cardName() + "x:${point.x},y:${point.y}")
+//            }
+//        }
+
+        //判断敌方嘲讽
 
 
+        //寻找我方场上亮了的牌
+        CardGroup_ALL.liang亮点
+        var liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.5f, 0.95f, 0.75f)).findLiang亮点Points()
+        for (liang in liangCard) {
+            val oldPoint = UtilMouse.getMousePosition()
+            UtilMouse.moveTo(liang.x, liang.y)
+            UtilMouse.clickLeft()
+            UtilSystem.sleep(200)
+            //先打对方嘲讽，否则打敌方英雄
+            UtilMouse.moveTo(EnemyHeroPoint.x, EnemyHeroPoint.y)
+            UtilSystem.sleep(200)
+            UtilMouse.clickLeft()
+            UtilMouse.moveTo(oldPoint.x, oldPoint.y)
+        }
+
+        //判断亮了的手牌
+        liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点Points()
+        for (liang in liangCard) {
+            print("point ${liang.x} ${liang.y}")
+            UtilMouse.moveTo(liang.x, liang.y)
+        }
         callback()
     }
 
@@ -138,24 +179,30 @@ object GameManage {
         callback()
     }
 
+
+    private fun onIsOther(callback: () -> Unit) {
+        callback()
+    }
+
     /**
      * 分析起始手牌
      */
     private fun parseQiShiShouPai(screenImage: BufferedImage) {
-        UtilLogCat.d("分析起始手牌...")
-        UtilLogCat.d("抽到的手牌有:")
+//        UtilLogCat.d("分析起始手牌...")
+//        UtilLogCat.d("抽到的手牌有:")
         //查找起始抽到的牌
-        var point = Point(0, 0)
-        for (card in cardIn牌库) {
-            //遍历牌库的牌，查找收到的手牌
-            point = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(card.imageFind)
-            if (!point.isErrirPoint()) {
-                //changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
-                card.onGetMe()  //这个方法会做上面注释掉的步骤
-                //card.point = point
-                UtilLogCat.d(card.cardName())
-            }
-        }
+//        var point = Point(0, 0)
+//        val xx = cardIn牌库
+//        for (card in cardIn牌库) {
+//            //遍历牌库的牌，查找收到的手牌
+//            point = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(card.imageFind)
+//            if (!point.isErrirPoint()) {
+//                //changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
+//                card.onGetMe()  //这个方法会做上面注释掉的步骤
+//                //card.point = point
+//                UtilLogCat.d(card.cardName() + "x:${point.x},y:${point.y}")
+//            }
+//        }
     }
 
 
@@ -232,7 +279,7 @@ object GameManage {
         var point = imageFindRGB.findImagePoint(FindDuiZhanMoShi()) //查找是否是点击对战
         var result = Environment.SELECT_MODE
         if (point.isErrirPoint()) {
-            point = imageFindRGB.findImagePoint(FindQiShiShouPai()) //查找是否是开始游戏
+            point = imageFindRGB.findImagePoint(FindQiShiShouPai()) //查找是否是起始手牌时
             result = Environment.QI_SHI_SHOU_PAI
             if (point.isErrirPoint()) {
                 point = imageFindRGB.findImagePoint(FindMyBoutContiune()) //查找是否是我的没结束回合
@@ -247,7 +294,7 @@ object GameManage {
                             point = imageFindRGB.findImagePoint(FindClickToContiune(), true) //查找是否是点击继续
                             result = Environment.CLICK_TO_CONTINUE
                             if (point.isErrirPoint()) {
-                                point = imageFindRGB.findImagePoint(FindStartGame())//查找是否是起始手牌时
+                                point = imageFindRGB.findImagePoint(FindStartGame()) //查找是否是开始游戏
                                 result = Environment.START_GAME
                                 if (point.isErrirPoint()) {
                                     result = Environment.OTHER //归纳为其他环境
@@ -295,8 +342,7 @@ object GameManage {
                 onIsQiShiShouPai(environmentBean.screenImage, callback)
             }
             Environment.OTHER -> {
-//                UtilLogCat.d("未知其他环境，进行下一次截屏分析...")
-                callback()
+                onIsOther(callback)
             }
             Environment.QI_SHI_SHOU_PAI3 -> {
 

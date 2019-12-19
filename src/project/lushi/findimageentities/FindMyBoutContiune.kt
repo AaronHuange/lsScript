@@ -9,13 +9,13 @@ class FindMyBoutContiune(imagePath: String = UtilFile.getAssetsImagePath("mybout
 
     override fun grayValue() = 1f
 
-    override fun grayDiffValue() = 12
+    override fun grayDiffValue() = 18
 
     override fun getErrorCount() = 0
 
-    override fun getFloatCount() = 1
+    override fun getFloatCount() = 2
 
-    override fun findAreaRate() = AimImageAreaRate(0.6f, 0.4f, 1f, 0.6f)
+    override fun findAreaRate() = AimImageAreaRate(0.7f, 0.4f, 1f, 0.6f)
 
     override fun exeHandler(point: Point) {
         //我的回合需要继续时，这张被发现的图片的地方不能点所以不能进行任何操作

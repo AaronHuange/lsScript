@@ -13,7 +13,8 @@ import javax.rmi.CORBA.Util
 /**
  * 通过像素RGB和图片灰度化查找图片( >>>需要查找模型自己提供找到后的坐标<<< )
  */
-open class ImageFindRGBGrayValue(screenShotImage: BufferedImage, scaleWidth: Int = screenShotImage.width, scaleHeight: Int = screenShotImage.height) : BaseContainImage(screenShotImage = screenShotImage, scaleWidth = scaleWidth, scaleHeight = scaleHeight) {
+open class ImageFindRGBGrayValue(screenShotImage: BufferedImage, scaleWidth: Int = screenShotImage.width, scaleHeight: Int = screenShotImage.height)
+    : BaseContainImage(screenShotImage = screenShotImage, scaleWidth = scaleWidth, scaleHeight = scaleHeight) {
 
     override fun findImagePoint(baseImageFind: BaseImageFind, openA: Boolean): Point {
         val screenScaleImage = getScaledBitmap()

@@ -5,6 +5,8 @@ import tools.UtilFile
 import java.awt.Point
 import java.io.File
 
+
+
 class FindAnJinJiaoShuiJinChiNv(imagePath: String = UtilFile.getAssetsImagePath("cardgouphanbingaomifa" + File.separator + "anjingjiaoshuijingshinv.jpg"))
     : BaseImageFind(imagePath = imagePath) {
     override fun grayValue() = 1f
@@ -17,7 +19,7 @@ class FindAnJinJiaoShuiJinChiNv(imagePath: String = UtilFile.getAssetsImagePath(
 
     override fun getFloatCount() = 1
 
-    override fun usePoint(screenSize: Point) = Point(0, 0)
+    override fun usePoint(screenSize: Point) = Point(3, 6)
 
     override fun exeHandler(point: Point) {
     }

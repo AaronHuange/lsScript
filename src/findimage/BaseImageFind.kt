@@ -24,6 +24,8 @@ abstract class BaseImageFind(imagePath: String) {
         }
     }
 
+//    fun getPiexl
+
     fun getBitmap() = bitmap
 
     fun getImageWidth() = bitmap.width

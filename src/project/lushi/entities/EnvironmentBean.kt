@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage
  * 游戏环境
  */
 class EnvironmentBean(result: Environment, screenImage: BufferedImage) {
-
     val result: Environment
 
     val screenImage: BufferedImage
@@ -16,5 +15,4 @@ class EnvironmentBean(result: Environment, screenImage: BufferedImage) {
         this.result = result
         this.screenImage = screenImage
     }
-
 }
