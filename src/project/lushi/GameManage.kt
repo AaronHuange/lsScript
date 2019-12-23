@@ -133,25 +133,59 @@ object GameManage {
 
         //寻找我方场上亮了的牌
         CardGroup_ALL.liang亮点
-        var liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.5f, 0.95f, 0.75f)).findLiang亮点Points()
-        for (liang in liangCard) {
-            val oldPoint = UtilMouse.getMousePosition()
-            UtilMouse.moveTo(liang.x, liang.y)
+        var liangCard: Point //判断亮了的手牌
+        while (true) {
+            var liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.5f, 0.95f, 0.75f)).findLiang亮点APoint()
+            if (liangCard.isErrirPoint()) {
+                break
+            }
+            print("point ${liangCard.x} ${liangCard.y}")
+            UtilMouse.moveTo(liangCard.x, liangCard.y)
             UtilMouse.clickLeft()
             UtilSystem.sleep(200)
-            //先打对方嘲讽，否则打敌方英雄
-            UtilMouse.moveTo(EnemyHeroPoint.x, EnemyHeroPoint.y)
+            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height/3)
             UtilSystem.sleep(200)
             UtilMouse.clickLeft()
-            UtilMouse.moveTo(oldPoint.x, oldPoint.y)
         }
 
+
+//        for (liang in liangCard) {
+//            val oldPoint = UtilMouse.getMousePosition()
+//            UtilMouse.moveTo(liang.x, liang.y)
+//            UtilMouse.clickLeft()
+//            UtilSystem.sleep(200)
+//            //先打对方嘲讽，否则打敌方英雄
+//            UtilMouse.moveTo(EnemyHeroPoint.x, EnemyHeroPoint.y)
+//            UtilSystem.sleep(200)
+//            UtilMouse.clickLeft()
+//            UtilMouse.moveTo(oldPoint.x, oldPoint.y)
+//        }
+
         //判断亮了的手牌
-        liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点Points()
-        for (liang in liangCard) {
-            print("point ${liang.x} ${liang.y}")
-            UtilMouse.moveTo(liang.x, liang.y)
+        liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点APoint()
+        if (!liangCard.isErrirPoint()) {
+            print("point ${liangCard.x} ${liangCard.y}")
+            UtilMouse.moveTo(liangCard.x, liangCard.y)
+            UtilMouse.clickLeft()
+            UtilSystem.sleep(200)
+            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height/3)
+            UtilSystem.sleep(200)
+            UtilMouse.clickLeft()
         }
+
+//        while (true) {
+//            liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点APoint()
+//            if (liangCard.isErrirPoint()) {
+//                break
+//            }
+//            print("point ${liangCard.x} ${liangCard.y}")
+//            UtilMouse.moveTo(liangCard.x, liangCard.y)
+//            UtilMouse.clickLeft()
+//            UtilSystem.sleep(500)
+//            UtilMouse.moveTo(liangCard.x, liangCard.y + 100)
+//            UtilSystem.sleep(500)
+//            UtilMouse.clickLeft()
+//        }
         callback()
     }
 

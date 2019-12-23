@@ -23,5 +23,5 @@ class FindEnemyBout(imagePath: String = UtilFile.getAssetsImagePath("enemybout.j
 
     override fun getErrorCount() = 0
 
-    override fun getFloatCount() = 0
+    override fun getFloatCount() = 1
 }

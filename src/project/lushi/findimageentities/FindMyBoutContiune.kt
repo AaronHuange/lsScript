@@ -9,11 +9,11 @@ class FindMyBoutContiune(imagePath: String = UtilFile.getAssetsImagePath("mybout
 
     override fun grayValue() = 1f
 
-    override fun grayDiffValue() = 18
+    override fun grayDiffValue() = 12
 
     override fun getErrorCount() = 0
 
-    override fun getFloatCount() = 2
+    override fun getFloatCount() = 1
 
     override fun findAreaRate() = AimImageAreaRate(0.7f, 0.4f, 1f, 0.6f)
 
