@@ -19,7 +19,7 @@ class FindEnemyBout(imagePath: String = UtilFile.getAssetsImagePath("enemybout.j
 
     override fun grayValue() = 1f
 
-    override fun grayDiffValue() = 12
+    override fun grayDiffValue() = 6
 
     override fun getErrorCount() = 0
 

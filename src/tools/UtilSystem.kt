@@ -1,6 +1,7 @@
 package tools
 
 import java.awt.Robot
+import java.util.*
 
 object UtilSystem : Robot() {
     init {
@@ -29,6 +30,13 @@ object UtilSystem : Robot() {
             else ->
                 return SystemType.Other
         }
+    }
+
+    /**
+     * 电脑唯一标识符
+     */
+    fun getSystemImei(): String {
+        return UUID.randomUUID().toString()
     }
 }
 

@@ -1,29 +1,22 @@
 package project.lushi
 
-import findimage.AimImageAreaRate
-import findimage.EnemyHeroPoint
-import findimage.ErrorPoint
+import findimage.*
 import findimage.findmethodimpl.ImageFindRGBGrayValue
-import findimage.findmethodimpl.ImageFindRGBGrayValuePoint
 import findimage.findmethodimpl.PointFindliang亮点Point
-import findimage.isErrirPoint
 import project.lushi.cardentities.BaseCard
 import project.lushi.cardentities.cards.cardgroup.BaseCardGroup
 import project.lushi.cardentities.cards.cardgroup.CardGroup_ALL
 import project.lushi.cardentities.cards.cardgroup.CardGroup_HanBinAoMiFa
 import project.lushi.entities.EnvironmentBean
-import project.lushi.enums.CardLocationMode
-import project.lushi.enums.Environment
-import project.lushi.enums.Jobs
-import project.lushi.enums.ZhanHongType
+import project.lushi.enums.*
 import project.lushi.findimageentities.*
 import tools.*
 import java.awt.Point
 import java.awt.image.BufferedImage
-import javax.rmi.CORBA.Util
-
 
 fun main(args: Array<String>) {
+//    for (v in 0..100)
+//        println(UtilSystem.getSystemImei())
     GameManage.exe(CardGroup_HanBinAoMiFa())
 //    GameManage.exe(CardGroup_ALL())
 }
@@ -36,7 +29,6 @@ object GameManage {
     var myJob = Jobs.中立
     var enemyJob = Jobs.中立
     var baseCardGroup: BaseCardGroup? = null
-
     fun exe(baseCardGroup: BaseCardGroup) {
         UtilLogCat.d("开始运行脚本")
         //初始化牌库
@@ -115,18 +107,13 @@ object GameManage {
      * 当是我的回合且未完成
      */
     private fun onIsMyContinueBout(screenImage: BufferedImage, callback: () -> Unit) {
-        //判断我方场上
-//        var point: Point
-//        for (card in cardIn战场) {
-//            //遍历牌库的牌，查找收到的手牌
-//            point = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(card.imageFind)
-//            if (!point.isErrirPoint()) {
-//                //changeCardStatusArrayList(card, card.cardLocationMode, CardLocationMode.IN手牌)
-//                card.onGetMe()  //这个方法会做上面注释掉的步骤
-//                //card.point = point
-//                UtilLogCat.d(card.cardName() + "x:${point.x},y:${point.y}")
-//            }
-//        }
+        //1：先把嘲讽撞了
+        //判断圣盾嘲讽
+//        val
+       // val shenDunChaoFeng = ImageFindRGBGrayValuePoint(screenImage).findImagePoint(FindChaoFengAndShenDun())
+
+
+        //判断复生嘲讽
 
         //判断敌方嘲讽
 
@@ -134,58 +121,32 @@ object GameManage {
         //寻找我方场上亮了的牌
         CardGroup_ALL.liang亮点
         var liangCard: Point //判断亮了的手牌
-        while (true) {
-            var liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.5f, 0.95f, 0.75f)).findLiang亮点APoint()
-            if (liangCard.isErrirPoint()) {
-                break
-            }
-            print("point ${liangCard.x} ${liangCard.y}")
-            UtilMouse.moveTo(liangCard.x, liangCard.y)
-            UtilMouse.clickLeft()
-            UtilSystem.sleep(200)
-            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height/3)
-            UtilSystem.sleep(200)
-            UtilMouse.clickLeft()
-        }
-
-
-//        for (liang in liangCard) {
-//            val oldPoint = UtilMouse.getMousePosition()
-//            UtilMouse.moveTo(liang.x, liang.y)
-//            UtilMouse.clickLeft()
-//            UtilSystem.sleep(200)
-//            //先打对方嘲讽，否则打敌方英雄
-//            UtilMouse.moveTo(EnemyHeroPoint.x, EnemyHeroPoint.y)
-//            UtilSystem.sleep(200)
-//            UtilMouse.clickLeft()
-//            UtilMouse.moveTo(oldPoint.x, oldPoint.y)
-//        }
-
-        //判断亮了的手牌
-        liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点APoint()
-        if (!liangCard.isErrirPoint()) {
-            print("point ${liangCard.x} ${liangCard.y}")
-            UtilMouse.moveTo(liangCard.x, liangCard.y)
-            UtilMouse.clickLeft()
-            UtilSystem.sleep(200)
-            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height/3)
-            UtilSystem.sleep(200)
-            UtilMouse.clickLeft()
-        }
-
 //        while (true) {
-//            liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.75f, 0.95f, 0.99f)).findLiang亮点APoint()
+//            var liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.5f, 0.95f, 0.65f)).findLiang亮点APoint()
 //            if (liangCard.isErrirPoint()) {
 //                break
 //            }
 //            print("point ${liangCard.x} ${liangCard.y}")
 //            UtilMouse.moveTo(liangCard.x, liangCard.y)
 //            UtilMouse.clickLeft()
-//            UtilSystem.sleep(500)
-//            UtilMouse.moveTo(liangCard.x, liangCard.y + 100)
-//            UtilSystem.sleep(500)
+//            UtilSystem.sleep(200)
+//            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height / 3)
+//            UtilSystem.sleep(200)
 //            UtilMouse.clickLeft()
 //        }
+
+        //2：出手牌
+        //判断亮了的手牌
+        liangCard = PointFindliang亮点Point(screenImage).setArea(AimImageAreaRate(0f, 0.90f, 0.95f, 0.99f)).findLiang亮点APoint()
+        if (!liangCard.isErrirPoint()) {
+            print("point ${liangCard.x} ${liangCard.y}")
+            UtilMouse.moveTo(liangCard.x, liangCard.y)
+            UtilMouse.clickLeft()
+            UtilSystem.sleep(200)
+            UtilMouse.moveTo(liangCard.x, liangCard.y - screenImage.height / 3)
+            UtilSystem.sleep(200)
+            UtilMouse.clickLeft()
+        }
         callback()
     }
 
@@ -213,7 +174,9 @@ object GameManage {
         callback()
     }
 
-
+    /**
+     * 其他不确定环境
+     */
     private fun onIsOther(callback: () -> Unit) {
         callback()
     }
@@ -249,7 +212,7 @@ object GameManage {
     }
 
     /**
-     * 我方是否有触发的奥秘
+     * 我方是否有未触发的奥秘
      */
     fun existMyAoMi(): Boolean {
 
@@ -301,6 +264,38 @@ object GameManage {
         }
     }
 
+    /**
+     * 发表情
+     */
+    fun sendBiaoQing(biaoQing: BiaoQing, screenImage: BufferedImage) {
+        val myHeroPoint = myHeroPoint(screenImage)
+        UtilMouse.moveTo(myHeroPoint.x, myHeroPoint.y)
+        UtilMouse.clickLeft()
+        UtilSystem.sleep(200)
+        when (biaoQing) {
+            BiaoQing.GREETINGS -> {
+                UtilMouse.moveTo(0, 0)
+            }
+            BiaoQing.OOPS -> {
+                UtilMouse.moveTo(0, 0)
+            }
+            BiaoQing.THANKS -> {
+                UtilMouse.moveTo(0, 0)
+            }
+            BiaoQing.THREATEN -> {
+                UtilMouse.moveTo(0, 0)
+            }
+            BiaoQing.WELL_PLAYED -> {
+                UtilMouse.moveTo(0, 0)
+            }
+            BiaoQing.WOW -> {
+                UtilMouse.moveTo(0, 0)
+            }
+        }
+        UtilSystem.sleep(200)
+        UtilMouse.clickLeft()
+        UtilMouse.moveTo(0, 0)
+    }
 
     /**
      * 判断当前环境

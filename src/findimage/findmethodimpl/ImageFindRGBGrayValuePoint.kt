@@ -69,6 +69,9 @@ class ImageFindRGBGrayValuePoint(screenShotImage: BufferedImage, scaleWidth: Int
                         if (areaRate == null) {
                             point = Point(((horizontal / getScaleWidth().toFloat()) * getOriginalBitmap().width).toInt(), (((vertical / getScaleHeight()).toFloat()) * getOriginalBitmap().height).toInt())
                         } else {
+
+
+
                             point = Point(0, 0)
                         }
                         baseImageFind.exeHandler(point)
